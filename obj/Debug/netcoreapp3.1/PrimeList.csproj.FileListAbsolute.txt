@@ -1,0 +1,13 @@
+C:\Projects\PrimeList\bin\Debug\netcoreapp3.1\PrimeList.exe
+C:\Projects\PrimeList\bin\Debug\netcoreapp3.1\PrimeList.deps.json
+C:\Projects\PrimeList\bin\Debug\netcoreapp3.1\PrimeList.runtimeconfig.json
+C:\Projects\PrimeList\bin\Debug\netcoreapp3.1\PrimeList.runtimeconfig.dev.json
+C:\Projects\PrimeList\bin\Debug\netcoreapp3.1\PrimeList.dll
+C:\Projects\PrimeList\bin\Debug\netcoreapp3.1\PrimeList.pdb
+C:\Projects\PrimeList\obj\Debug\netcoreapp3.1\PrimeList.csprojAssemblyReference.cache
+C:\Projects\PrimeList\obj\Debug\netcoreapp3.1\PrimeList.AssemblyInfoInputs.cache
+C:\Projects\PrimeList\obj\Debug\netcoreapp3.1\PrimeList.AssemblyInfo.cs
+C:\Projects\PrimeList\obj\Debug\netcoreapp3.1\PrimeList.csproj.CoreCompileInputs.cache
+C:\Projects\PrimeList\obj\Debug\netcoreapp3.1\PrimeList.dll
+C:\Projects\PrimeList\obj\Debug\netcoreapp3.1\PrimeList.pdb
+C:\Projects\PrimeList\obj\Debug\netcoreapp3.1\PrimeList.genruntimeconfig.cache
