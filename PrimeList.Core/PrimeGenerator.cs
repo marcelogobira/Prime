@@ -2,6 +2,10 @@ using System;
 
 namespace PrimeList
 {
+
+    //Based on the sieve of eratosthenes
+    //Firts find the highest checking number: sqrt of max value
+    //Then, uncheck all multiples of "i"
     public class PrimeGenerator
     {
         private static int s;
@@ -48,7 +52,24 @@ namespace PrimeList
             }
         }
 
-        private void InitializeSieve(int maxValue)
+        private static void Sieve()
+        {
+            int i;
+            int j;
+
+            for(i = 2; i < Math.Sqrt(s) + 1; i++)
+            {
+                if(f[i])
+                {
+                    for(j = 2 * i; j < s; j+=i)
+                    {
+                        f[j] = false;
+                    }
+                }
+            }
+        }
+
+        private static void InitializeSieve(int maxValue)
         {
             s = maxValue + 1;
             f = new bool[s];
