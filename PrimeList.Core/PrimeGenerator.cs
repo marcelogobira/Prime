@@ -1,3 +1,5 @@
+using System.IO;
+using System.Text.RegularExpressions;
 using System;
 
 namespace PrimeList
@@ -8,9 +10,8 @@ namespace PrimeList
     //Then, uncheck all multiples of "i"
     public class PrimeGenerator
     {
-        private static int s;
-        private static bool[] f;
-        private static int[] primes;
+        private static bool[] crossedOut;
+        private static int[] result;
 
         public static int[] GeneratePrimeNumbers(int maxValue)
         {
@@ -19,69 +20,111 @@ namespace PrimeList
                 return new int[0];
             }
 
-            InitializeSieve(maxValue);
-            Sieve();
-            LoadPrimes();
-            return primes;
+            UncrossIntegersUpto(maxValue);
+            CrossOutMultiples();
+            PutUncrossedIntegersIntoResult();
+
+            return result;
+        }
+        
+        private static void UncrossIntegersUpto(int maxValue)
+        {
+            crossedOut = new bool[maxValue + 1];
+
+            for(int i = 2; i < crossedOut.Length; i ++)
+            {
+                crossedOut[i] = false;
+            }
+
         }
 
-        private static void LoadPrimes()
+        private static void PutUncrossedIntegersIntoResult()
         {
-            int i;
-            int j;
+            result = new int[NumberOfUncrossedIntegers()];
 
-            //How many prime numbers exists?
+            for(int j = 0, i = 2; i < crossedOut.Length; i++)
+            {
+                if(NotCrossed(i))
+                {
+                    result[j++] = i;
+                }
+            }
+        }
+
+        private static int NumberOfUncrossedIntegers()
+        {
             int count = 0;
-
-            for(i = 0; i < s; i++)
+            for(int i = 2; i < crossedOut.Length; i++)
             {
-                if(f[i])
+                if(NotCrossed(i))
                 {
-                    count++; //increase count
+                    count++;
                 }
             }
 
-            primes = new int[count];
-
-            for(i = 0, j = 0; i < s; i++)
-            {
-                if(f[i])
-                {
-                    primes[j++] = i;
-                }
-            }
+            return count;
         }
 
-        private static void Sieve()
+        private static void CrossOutMultiples()
         {
-            int i;
-            int j;
+            int limit = DetermineIterationLimit();
 
-            for(i = 2; i < Math.Sqrt(s) + 1; i++)
+            for(int i = 2; i < limit; i++)
             {
-                if(f[i])
+                if(NotCrossed(i))
                 {
-                    for(j = 2 * i; j < s; j+=i)
-                    {
-                        f[j] = false;
-                    }
+                    CrossOutMultiplesOf(i);
                 }
             }
         }
-
-        private static void InitializeSieve(int maxValue)
+        
+        private static int DetermineIterationLimit()
         {
-            s = maxValue + 1;
-            f = new bool[s];
-            int i;
-
-            for(i = 0; i < s; i++)
-            {
-                f[i] = true;
-            }
-
-            //discard known primes
-            f[0] = f[1] = false;
+            double iterationLimit = Math.Sqrt(crossedOut.Length);
+            return (int)iterationLimit;
         }
+        
+        private static void CrossOutMultiplesOf(int i)
+        {
+            for(int multiple = 2 * i; multiple < crossedOut.Length; multiple += i)
+            {
+                crossedOut[multiple] = true;
+            }
+        }
+
+        private static bool NotCrossed(int i)
+        {
+            return crossedOut[i] == false;
+        }
+
+        // private static void PutUncrossedIntegersIntoResult()
+        // {
+        //     result = new int[NumberOfUncrossedIntegers()];
+
+        //     for(int j = 0, i = 2; i < crossedOut.Length; i++)
+        //     {
+        //         if(NotCrossed(i))
+        //         {
+        //             result[j++] = i;
+        //         }
+        //     }
+
+        // }
+
+        // private static void NumberOfUncrossedIntegers()
+        // {
+        //     int count = 0;
+            
+        //     for(int i = 2; i < crossedOut.Length; i++)
+        //     {
+        //         if(NotCrossed(i))
+        //         {
+        //             count++;
+        //         }
+
+        //         return count;
+        //     }
+        // }
+
     }
 }

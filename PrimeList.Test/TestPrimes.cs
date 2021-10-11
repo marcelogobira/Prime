@@ -1,3 +1,4 @@
+using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PrimeList;
 
@@ -25,16 +26,31 @@ namespace PrimeList.Test
             int[] centArray = PrimeGenerator.GeneratePrimeNumbers(100);
             Assert.AreEqual(centArray.Length, 25);
             Assert.AreEqual(centArray[24], 97);
+        }
 
-            // // Tests that we expect to return true.
-            // string[] words = { "Alp", "Zea", "ABC", "Ανα", "Мос" };
-            // foreach (var word in words)
-            // {
-            //     bool result = word.Length == 3;
-            //     Assert.IsTrue(result,
-            //            string.Format("Expected for '{0}': true; Actual: {1}",s
-            //                          word, result));
-            // }
+        [TestMethod]
+        public void TestExhaustive()
+        {
+            for(int i = 2; i < 500; i++)
+            {
+                VerifyPrimeList(PrimeGenerator.GeneratePrimeNumbers(i));
+            }
+        }
+
+        private void VerifyPrimeList(int[] list)
+        {
+            for(int i = 0; i < list.Length; i++)
+            {
+                VerifyPrime(list[i]);
+            }
+        }
+
+        private void VerifyPrime(int n)
+        {
+            for(int factor = 2; factor < n; factor++)
+            {
+                Assert.IsTrue(n%factor != 0);
+            }
         }
     }
 }
